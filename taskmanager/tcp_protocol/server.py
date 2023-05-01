@@ -20,13 +20,15 @@ class TCPServer:
 
     def message_processing(self, connection, data):
         """Method for processing messages."""
+        print(data)
         if tmp.START_APP in data:
+            print('OPEN 1')
             self.manager.manage_application(
-                data.replace(tmp.START_APP, ''))
+                data.replace(tmp.START_APP, ''), is_close=False)
 
         elif tmp.STOP_APP in data:
             self.manager.manage_application(
-                data.replace(tmp.STOP_APP, ''), close=True)
+                data.replace(tmp.STOP_APP, ''), is_close=True)
 
         elif tmp.SEND_MSG in data:
             self.manager.sending_messages(

@@ -1,3 +1,3 @@
-TCP_IP = '0.0.0.0'
-TCP_PORT = 5005
+TCP_IP = 'localhost'
+TCP_PORT = 6681
 BUFFER_SIZE = 1024

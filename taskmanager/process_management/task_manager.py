@@ -13,31 +13,20 @@ class Manager:
 
     def get_list_of_applications(self):
         """Receiving all snap packages and standard applications."""
-        all_applications = []
+        from windows_tools.installed_software import get_installed_software
+        return ','.join([software['name'] for software in get_installed_software()])
 
-        snap_packages = os.listdir(os.path.join('/snap', 'bin'))
-        standard_programs = os.path.join('/usr', 'share', 'applications')
-
-        all_applications.extend(snap_packages)
-
-        for program in os.listdir(standard_programs):
-            all_applications.append(
-                program.replace(
-                    '.desktop', '').replace('org.gnome.', 'gnome-').lower())
-
-        return ','.join(all_applications)
-
-    def manage_application(self, app_name, close=False):
+    def manage_application(self, app_name, is_close=False):
         """Starting or stopping applications and processes."""
+        from AppOpener import open, close
         try:
-            if close:
-                for process in psutil.process_iter():
-                    if app_name.lower().strip() in process.name().lower():
-                        process.kill()
+            if is_close:
+                close(app_name.split()[0])
             else:
-                program = subprocess.Popen(app_name)
-        except FileNotFoundError:
-            pass
+                print('open')
+                open(app_name)
+        except FileNotFoundError as ex:
+            print(ex)
 
     def sending_messages(self, message):
         """Sending messages that are called as new windows."""
