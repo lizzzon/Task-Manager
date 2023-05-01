@@ -1,9 +1,4 @@
 """Process control module."""
-
-import os
-import subprocess
-
-import psutil
 import tkinter as tk
 from tkinter import messagebox
 

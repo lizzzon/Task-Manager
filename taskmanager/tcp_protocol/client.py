@@ -1,7 +1,6 @@
 """TCP client module."""
 
 import socket
-import threading
 
 from taskmanager.tcp_protocol import const_tcp
 from taskmanager.tcp_protocol import message_templates as tmp
